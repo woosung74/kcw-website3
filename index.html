@@ -466,6 +466,47 @@
     .event h3 { margin: 0 0 5px; font-size: 17px; }
     .event p { margin: 0; color: var(--muted); font-size: 14px; }
 
+    .gallery-section { background: #f5f8fb; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .gallery-item {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      min-height: 220px;
+      border-radius: 12px;
+      background: #dfe7ee;
+      box-shadow: 0 8px 24px rgba(23, 32, 51, .08);
+    }
+    .gallery-item:nth-child(3n + 1) { grid-column: span 2; }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform .35s ease, filter .35s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.035); filter: brightness(.88); }
+    .gallery-item span {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      padding: 6px 9px;
+      border-radius: 6px;
+      color: #fff;
+      background: rgba(17, 48, 72, .82);
+      font-size: 13px;
+      font-weight: 800;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: .25s ease;
+    }
+    .gallery-item:hover span { opacity: 1; transform: translateY(0); }
+
     .bulletin-box {
       background: #fff;
       border: 1px solid var(--line);
@@ -759,6 +800,8 @@
       .bulletin-frame { height: 68vh; min-height: 440px; }
       .bible-grid { grid-template-columns: 1fr; }
       .bible-frame { height: 68vh; min-height: 440px; }
+      .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .gallery-item:nth-child(3n + 1) { grid-column: span 1; }
       .form-grid { grid-template-columns: 1fr; }
       footer .container { display: block; }
     }
@@ -782,6 +825,7 @@
         <li><a href="#message">Sermons</a></li>
         <li><a href="#praise">Praise</a></li>
         <li><a href="#news">News</a></li>
+        <li><a href="#gallery">Gallery</a></li>
         <li><a href="#bulletin">Bulletin</a></li>
         <li><a href="#visit">Contact</a></li>
         <li><a class="give-link" href="#give">Give</a></li>
@@ -1011,6 +1055,35 @@
             <span class="tag">기도회</span>
             <div><h3>금요 성령 기도회</h3><p>매주 금요일 저녁 7시 30분, 3층. 시편 강해 중입니다.</p></div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="gallery-section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="label">Church Gallery</span>
+            <h2>우리 교회 이야기 <small style="display:block;font-size:.48em;color:var(--muted);margin-top:6px;">Our Church Family</small></h2>
+            <p class="lead">예배와 교제, 다음 세대와 이웃 섬김의 아름다운 순간들입니다. 사진을 누르면 크게 볼 수 있습니다.</p>
+          </div>
+        </div>
+        <!-- 새 사진 추가: gallery 폴더에 사진을 넣고 아래 gallery-item 한 줄을 복사해 파일명만 바꾸세요. -->
+        <div class="gallery-grid">
+          <a class="gallery-item" href="gallery/gallery-01.jpeg" target="_blank"><img src="gallery/gallery-01.jpeg" alt="웨체스터제일교회 어르신 공동체" loading="lazy"><span>교회 공동체</span></a>
+          <a class="gallery-item" href="gallery/gallery-02.jpeg" target="_blank"><img src="gallery/gallery-02.jpeg" alt="웨체스터제일교회 청년 야외 교제" loading="lazy"><span>청년 공동체</span></a>
+          <a class="gallery-item" href="gallery/gallery-03.jpeg" target="_blank"><img src="gallery/gallery-03.jpeg" alt="웨체스터제일교회 가족 야외 모임" loading="lazy"><span>가족 야외 모임</span></a>
+          <a class="gallery-item" href="gallery/gallery-04.jpeg" target="_blank"><img src="gallery/gallery-04.jpeg" alt="교회 가족 생일 축하" loading="lazy"><span>기쁨의 교제</span></a>
+          <a class="gallery-item" href="gallery/gallery-05.jpeg" target="_blank"><img src="gallery/gallery-05.jpeg" alt="친교 식사 시간" loading="lazy"><span>친교와 식탁</span></a>
+          <a class="gallery-item" href="gallery/gallery-06.jpeg" target="_blank"><img src="gallery/gallery-06.jpeg" alt="교회 건물 봉사" loading="lazy"><span>섬김과 봉사</span></a>
+          <a class="gallery-item" href="gallery/gallery-07.jpeg" target="_blank"><img src="gallery/gallery-07.jpeg" alt="예배 후 교제" loading="lazy"><span>예배와 교제</span></a>
+          <a class="gallery-item" href="gallery/gallery-08.jpeg" target="_blank"><img src="gallery/gallery-08.jpeg" alt="교회 식사 준비 봉사" loading="lazy"><span>사랑의 식탁</span></a>
+          <a class="gallery-item" href="gallery/gallery-09.jpeg" target="_blank"><img src="gallery/gallery-09.jpeg" alt="어린이 미술 활동" loading="lazy"><span>다음 세대</span></a>
+          <a class="gallery-item" href="gallery/gallery-10.jpeg" target="_blank"><img src="gallery/gallery-10.jpeg" alt="한글 서예 활동" loading="lazy"><span>문화 교실</span></a>
+          <a class="gallery-item" href="gallery/gallery-11.jpeg" target="_blank"><img src="gallery/gallery-11.jpeg" alt="코리안 데이 어린이 사진" loading="lazy"><span>Korean Day</span></a>
+          <a class="gallery-item" href="gallery/gallery-12.jpeg" target="_blank"><img src="gallery/gallery-12.jpeg" alt="웨체스터제일교회 가족 단체 사진" loading="lazy"><span>한 가족</span></a>
+          <a class="gallery-item" href="gallery/gallery-13.jpeg" target="_blank"><img src="gallery/gallery-13.jpeg" alt="코리안 데이 가족 사진" loading="lazy"><span>교회 가족</span></a>
+          <a class="gallery-item" href="gallery/gallery-14.jpeg" target="_blank"><img src="gallery/gallery-14.jpeg" alt="교회 문화 활동 작품" loading="lazy"><span>은혜의 작품</span></a>
         </div>
       </div>
     </section>
