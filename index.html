@@ -836,8 +836,8 @@
         <div class="media-group">
           <div class="media-group-head">
             <div>
-              <h3>주일설교 말씀</h3>
-              <p>주일 오전 11시 예배 말씀</p>
+            <h3>주일설교 말씀</h3>
+              <p>주일 오전 11시 예배 말씀 · YouTube 업로드 후 자동 업데이트</p>
             </div>
             <i class="fa-solid fa-church"></i>
           </div>
@@ -847,7 +847,7 @@
           <div class="media-group-head">
             <div>
               <h3>금요성령기도회</h3>
-              <p>매주 금요일 저녁 7시 30분 말씀과 기도</p>
+              <p>매주 금요일 저녁 7시 30분 말씀과 기도 · YouTube 업로드 후 자동 업데이트</p>
             </div>
             <i class="fa-solid fa-hands-praying"></i>
           </div>
@@ -1175,7 +1175,7 @@
       if (/금요|성령|기도회|시편/.test(title)) return "friday";
       if (/중창|kcw\s*중창|choir/.test(text)) return "choir";
       if (/특별|찬양|특송|연주|oboe|oboist|piano|tenor|bless|christmas|크리스마스/.test(text)) return "special";
-      if (/주일|설교|예배|father/.test(text)) return "sunday";
+      if (/\(주일|주일\s*(예배|설교)|sunday\s*(worship|service|sermon)|father'?s\s*day/.test(text)) return "sunday";
       return "";
     }
 
@@ -1189,45 +1189,66 @@
     }
 
     function mergeVideos(liveVideos) {
-      const seen = new Set();
+      const seenIds = new Set();
+      const seenTitles = new Set();
       return [...liveVideos, ...fallbackVideos].filter(item => {
-        const key = `${item.category}:${item.id || item.title}`;
-        if (seen.has(key)) return false;
-        seen.add(key);
+        const idKey = item.id || "";
+        const titleKey = `${item.category}:${normalizeTitle(item.title).toLowerCase()}`;
+        if ((idKey && seenIds.has(idKey)) || seenTitles.has(titleKey)) return false;
+        if (idKey) seenIds.add(idKey);
+        seenTitles.add(titleKey);
         return true;
       });
+    }
+
+    function parseYouTubeXml(xmlText) {
+      const xml = new DOMParser().parseFromString(xmlText, "application/xml");
+      return Array.from(xml.getElementsByTagName("entry")).map(entry => {
+        const id = getTextByLocalName(entry, "videoId");
+        const rawTitle = getTextByLocalName(entry, "title");
+        const published = getTextByLocalName(entry, "published");
+        const category = classifyVideo(rawTitle);
+        return {
+          category,
+          id,
+          title: normalizeTitle(rawTitle),
+          meta: `${formatDate(published)} · ${labels[category]}`
+        };
+      }).filter(item => item.id && item.title && item.category);
+    }
+
+    function parseRss2Json(data) {
+      return (data.items || []).map(item => {
+        const id = (item.guid || item.link || "").split(":").pop().split("v=").pop();
+        const category = classifyVideo(item.title || "");
+        return {
+          category,
+          id,
+          title: normalizeTitle(item.title || ""),
+          meta: `${formatDate(item.pubDate)} · ${labels[category]}`
+        };
+      }).filter(item => item.id && item.title && item.category);
     }
 
     async function fetchLatestYouTubeVideos() {
       const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`;
       const proxyUrls = [
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(feedUrl)}`,
-        `https://corsproxy.io/?${encodeURIComponent(feedUrl)}`
+        { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(feedUrl)}`, type: "xml" },
+        { url: `https://corsproxy.io/?${encodeURIComponent(feedUrl)}`, type: "xml" },
+        { url: `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`, type: "json" }
       ];
 
-      for (const url of proxyUrls) {
+      for (const source of proxyUrls) {
         try {
           const controller = new AbortController();
           const timer = setTimeout(() => controller.abort(), 8000);
-          const response = await fetch(url, { signal: controller.signal });
+          const response = await fetch(source.url, { signal: controller.signal, cache: "no-store" });
           clearTimeout(timer);
           if (!response.ok) continue;
 
-          const xmlText = await response.text();
-          const xml = new DOMParser().parseFromString(xmlText, "application/xml");
-          const entries = Array.from(xml.getElementsByTagName("entry"));
-          const liveVideos = entries.map(entry => {
-            const id = getTextByLocalName(entry, "videoId");
-            const rawTitle = getTextByLocalName(entry, "title");
-            const published = getTextByLocalName(entry, "published");
-            const category = classifyVideo(rawTitle);
-            return {
-              category,
-              id,
-              title: normalizeTitle(rawTitle),
-              meta: `${formatDate(published)} · ${labels[category]}`
-            };
-          }).filter(item => item.id && item.title && item.category);
+          const liveVideos = source.type === "json"
+            ? parseRss2Json(await response.json())
+            : parseYouTubeXml(await response.text());
 
           if (liveVideos.length) {
             videos = mergeVideos(liveVideos);
