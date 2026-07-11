@@ -196,6 +196,13 @@
       margin: 0 0 18px;
       letter-spacing: 0;
     }
+    .hero-korean-title {
+      margin: -8px 0 16px;
+      color: rgba(255,255,255,.82);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
     .hero-copy {
       max-width: 650px;
       color: rgba(255,255,255,.88);
@@ -705,7 +712,7 @@
 
 <body>
   <header class="topbar">
-    <nav class="nav" aria-label="주 메뉴">
+    <nav class="nav" aria-label="Main navigation">
       <a class="brand" href="#home">
         <img src="church-logo.png" alt="웨체스터제일교회 로고">
         <span>
@@ -713,15 +720,15 @@
           <span>Korean Church of Westchester</span>
         </span>
       </a>
-      <button class="menu-btn" type="button" aria-label="메뉴 열기" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+      <button class="menu-btn" type="button" aria-label="Open menu" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#worship">예배</a></li>
-        <li><a href="#message">말씀</a></li>
-        <li><a href="#praise">찬양</a></li>
-        <li><a href="#news">소식</a></li>
-        <li><a href="#bulletin">최신주보</a></li>
-        <li><a href="#visit">연락처</a></li>
-        <li><a class="give-link" href="#give">헌금하기</a></li>
+        <li><a href="#worship">Worship</a></li>
+        <li><a href="#message">Sermons</a></li>
+        <li><a href="#praise">Praise</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#bulletin">Bulletin</a></li>
+        <li><a href="#visit">Contact</a></li>
+        <li><a class="give-link" href="#give">Give</a></li>
       </ul>
     </nav>
   </header>
@@ -731,12 +738,13 @@
       <div class="hero-inner">
         <div>
           <p class="eyebrow">Life Giving Church 2026</p>
-          <h1>웨체스터제일교회</h1>
+          <h1>Korean Church<br>of Westchester</h1>
+          <p class="hero-korean-title">웨체스터제일교회</p>
           <p class="hero-copy">하나님을 예배하기 위해 오신 당신을 축복하며 환영합니다. 말씀, 기도, 소그룹, 이웃 섬김으로 복음을 나누는 공동체입니다.</p>
           <div class="hero-actions">
-            <a class="btn primary" href="#worship"><i class="fa-solid fa-calendar-check"></i> 예배 시간 보기</a>
-            <a class="btn ghost" href="https://www.youtube.com/@kcwny" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> 유튜브 채널</a>
-            <a class="btn gold" href="#give"><i class="fa-solid fa-heart"></i> 헌금 안내</a>
+            <a class="btn primary" href="#worship"><i class="fa-solid fa-calendar-check"></i> Worship Times</a>
+            <a class="btn ghost" href="https://www.youtube.com/@kcwny" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> YouTube</a>
+            <a class="btn gold" href="#give"><i class="fa-solid fa-heart"></i> Give</a>
           </div>
         </div>
 
@@ -744,22 +752,22 @@
           <div class="quick-head">
             <img src="church-logo.png" alt="">
             <div>
-              <strong>이번 주 예배</strong>
-              <span>48권 27호 · 2026년 7월 5일</span>
+              <strong>This Week's Worship</strong>
+              <span>Vol. 48, No. 27 · July 5, 2026</span>
             </div>
           </div>
           <div class="quick-list">
             <div class="quick-row">
               <i class="fa-solid fa-book-bible"></i>
-              <div><b>주일 말씀: 교실 벽에 걸렸던 십계명</b><span>출애굽기 20:1-17 · 안병국 담임목사</span></div>
+              <div><b>Sunday Message: The Ten Commandments on the Classroom Wall</b><span>Exodus 20:1-17 · Rev. Byung Kook Ahn</span></div>
             </div>
             <div class="quick-row">
               <i class="fa-solid fa-music"></i>
-              <div><b>봉헌 찬양: 죄에서 자유를 얻게 함은</b><span>7월 5일 주일예배</span></div>
+              <div><b>Offering Hymn: Power in the Blood</b><span>July 5 Sunday Worship</span></div>
             </div>
             <div class="quick-row">
               <i class="fa-solid fa-location-dot"></i>
-              <div><b>242 N Broadway, Sleepy Hollow, NY</b><span>주차: Sleepy Hollow High School</span></div>
+              <div><b>242 N Broadway, Sleepy Hollow, NY</b><span>Parking: Sleepy Hollow High School</span></div>
             </div>
           </div>
         </aside>
@@ -771,7 +779,7 @@
         <div class="section-head">
           <div>
             <span class="label">Worship Schedule</span>
-            <h2>예배와 모임 시간</h2>
+            <h2>Worship & Fellowship</h2>
             <p class="lead">성인 예배, Sunday School, Youth Group이 주일 오전 11시에 함께 시작합니다.</p>
           </div>
           <div class="section-actions">
@@ -792,7 +800,7 @@
       <div class="container split">
         <article class="pastor-note">
           <span class="label">Pastor's Greeting</span>
-          <h2>담임목사 인사말</h2>
+          <h2>Pastor's Welcome</h2>
           <blockquote>“사랑하는 성도님들과 방문자 여러분을 주님의 이름으로 환영합니다.”</blockquote>
           <p>웨체스터제일교회는 하나님의 말씀과 성령의 인도하심 아래, 예수 그리스도를 증거하며 서로를 섬기는 공동체입니다.</p>
           <p>처음 교회를 찾으시는 분들, 믿음의 가정을 세워가시는 분들 모두를 따뜻하게 환영합니다. 함께 예배하며 하나님의 풍성한 은혜를 누리시기를 바랍니다.</p>
@@ -818,7 +826,7 @@
         <div class="section-head">
           <div>
             <span class="label">Sermons</span>
-            <h2>말씀</h2>
+            <h2>Sermons</h2>
             <p class="lead">주일설교 말씀과 금요성령기도회 말씀을 구분해서 볼 수 있습니다.</p>
           </div>
           <div class="section-actions">
@@ -853,7 +861,7 @@
         <div class="section-head">
           <div>
             <span class="label">Praise</span>
-            <h2>찬양</h2>
+            <h2>Praise & Music</h2>
             <p class="lead">KCW 중창단과 특별 순서 영상을 따로 모았습니다.</p>
           </div>
           <div class="section-actions">
@@ -888,7 +896,7 @@
         <div class="section-head">
           <div>
             <span class="label">Announcement</span>
-            <h2>교회 소식</h2>
+            <h2>Church News</h2>
             <p class="lead">최근 주보 기준으로 꼭 알아야 할 소식을 모았습니다.</p>
           </div>
         </div>
@@ -918,7 +926,7 @@
         <div class="section-head">
           <div>
             <span class="label">Upcoming</span>
-            <h2>다가오는 일정</h2>
+            <h2>Upcoming Events</h2>
           </div>
         </div>
         <div class="event-grid">
@@ -943,7 +951,7 @@
         <div class="section-head">
           <div>
           <span class="label">Bulletin</span>
-          <h2>교회 주보</h2>
+          <h2>Weekly Bulletin</h2>
           <p class="lead">최신 주보를 홈페이지 안에서 바로 볼 수 있습니다.</p>
           </div>
           <div class="section-actions">
@@ -991,7 +999,7 @@
         <div class="section-head">
           <div>
             <span class="label">Giving</span>
-            <h2>헌금 안내</h2>
+            <h2>Giving</h2>
             <p class="lead">주보에 안내된 헌금 정보를 한곳에 모았습니다.</p>
           </div>
         </div>
@@ -1022,7 +1030,7 @@
         <div>
           <div class="visit-intro">
             <span class="label">Contact</span>
-            <h2>방문과 연락처</h2>
+            <h2>Visit & Contact</h2>
             <p class="lead">예배 후에는 잘 준비된 친교와 만남이 있습니다. 처음 오시는 분도 편하게 방문해 주세요.</p>
             <div class="visit-chip"><i class="fa-solid fa-mug-hot"></i> 주일예배 후 친교와 안내가 준비되어 있습니다</div>
           </div>
