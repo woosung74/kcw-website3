@@ -511,6 +511,59 @@
     .bulletin-row strong { display: block; }
     .bulletin-row span { color: var(--muted); font-size: 13px; }
 
+    .bible-reading {
+      background: linear-gradient(135deg, #edf8f0 0%, #fffaf1 100%);
+      border-top: 1px solid #dcebdd;
+      border-bottom: 1px solid #eadfca;
+    }
+    .bible-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .bible-card, .bible-guide {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 10px 28px rgba(23, 32, 51, .06);
+    }
+    .bible-card h3, .bible-guide h3 { margin: 0 0 8px; font-size: 23px; }
+    .bible-card p, .bible-guide p { color: var(--muted); }
+    .bible-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+    .bible-steps { display: grid; gap: 10px; margin-top: 18px; }
+    .bible-step {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px;
+      border-radius: 9px;
+      background: #f7faf8;
+      border: 1px solid #e1ece4;
+    }
+    .bible-step b:first-child {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--green);
+    }
+    .bible-step strong { display: block; margin-bottom: 3px; }
+    .bible-step span { color: var(--muted); font-size: 14px; }
+    .bible-frame {
+      width: 100%;
+      height: 540px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #eef2f6;
+      display: block;
+      margin-top: 16px;
+    }
+
     .donate {
       background: #fff;
       border-top: 1px solid var(--line);
@@ -704,6 +757,8 @@
       .bulletin-row { align-items: start; flex-direction: column; }
       .bulletin-viewer-head { align-items: start; flex-direction: column; }
       .bulletin-frame { height: 68vh; min-height: 440px; }
+      .bible-grid { grid-template-columns: 1fr; }
+      .bible-frame { height: 68vh; min-height: 440px; }
       .form-grid { grid-template-columns: 1fr; }
       footer .container { display: block; }
     }
@@ -723,6 +778,7 @@
       <button class="menu-btn" type="button" aria-label="Open menu" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
       <ul class="nav-links" id="navLinks">
         <li><a href="#worship">Worship</a></li>
+        <li><a href="#bible-reading">Bible Reading</a></li>
         <li><a href="#message">Sermons</a></li>
         <li><a href="#praise">Praise</a></li>
         <li><a href="#news">News</a></li>
@@ -816,6 +872,43 @@
             <span class="icon green"><i class="fa-solid fa-seedling"></i></span>
             <h3>2026 비전: 복음을 나누는 교회</h3>
             <p>NY, CT, NJ의 영혼을 구원하고 땅끝 해외 선교로 향하는 선교적 교회, 선교적 삶을 세워갑니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="bible-reading" class="bible-reading">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="label">Bible Reading</span>
+            <h2>온가족 성경통독</h2>
+            <p class="lead">매일 말씀을 읽고 함께 은혜를 나누는 웨체스터제일교회 성경통독 앱입니다.</p>
+          </div>
+          <div class="section-actions">
+            <a class="btn dark" href="https://woosung74.github.io/kcw-bible-reading/" target="_blank" rel="noopener"><i class="fa-solid fa-book-bible"></i> 성경통독 시작하기</a>
+          </div>
+        </div>
+        <div class="bible-grid">
+          <article class="bible-card">
+            <span class="icon green"><i class="fa-solid fa-mobile-screen-button"></i></span>
+            <h3>앱 설치 없이 바로 시작하세요</h3>
+            <p>회원가입이나 비밀번호가 필요하지 않습니다. 아래 버튼을 누르면 성경통독 페이지가 바로 열립니다.</p>
+            <div class="bible-actions">
+              <a class="btn dark" href="https://woosung74.github.io/kcw-bible-reading/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> 앱 열기</a>
+              <a class="btn line" href="bible-reading-install-guide.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf"></i> 설치 안내 PDF</a>
+              <a class="btn line" href="bible-reading-install-guide.pdf" download><i class="fa-solid fa-download"></i> PDF 다운로드</a>
+            </div>
+            <div class="bible-steps" aria-label="성경통독 앱 간단 설치 방법">
+              <div class="bible-step"><b>1</b><div><strong>성경통독 앱 열기</strong><span>“앱 열기” 버튼을 누르세요.</span></div></div>
+              <div class="bible-step"><b>2</b><div><strong>휴대폰 홈 화면에 추가</strong><span>아이폰은 Safari 공유 버튼, 안드로이드는 Chrome 메뉴를 이용하세요.</span></div></div>
+              <div class="bible-step"><b>3</b><div><strong>자세한 안내 보기</strong><span>잘 모르실 때는 오른쪽 PDF 안내문을 차례로 따라 하세요.</span></div></div>
+            </div>
+          </article>
+          <article class="bible-guide">
+            <h3>스마트폰 설치 안내</h3>
+            <p>아이폰과 안드로이드 설치 방법, QR 코드 사용법을 6쪽 안내문으로 준비했습니다.</p>
+            <iframe class="bible-frame" src="bible-reading-install-guide.pdf#view=FitH&amp;toolbar=1&amp;navpanes=0" title="웨체스터제일교회 성경통독 앱 스마트폰 설치 안내 PDF"></iframe>
           </article>
         </div>
       </div>
