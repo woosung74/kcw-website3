@@ -1,0 +1,87 @@
+웨체스터제일교회 웹사이트 사용법
+====================================
+
+★ 폴더 구조
+KCW-Church-Website/
+  index.html          ← 메인 웹사이트 파일
+  church-logo.png     ← 교회 로고 (이 파일명으로 저장하세요)
+  church-building.jpg ← 교회 건물 사진 (이 파일명으로 저장하세요)
+  pastor-photo.jpg    ← 담임목사님 사진 (선택사항)
+  bulletin-latest.pdf ← 이번 주 주보 PDF
+  bulletins/          ← 이전 주보 PDF 폴더
+    2026-05-03.pdf
+    2026-04-27.pdf
+    ...
+
+====================================
+★ 이미지 추가 방법
+====================================
+
+1) 교회 로고:
+   - 제공해 주신 로고 이미지를 "church-logo.png" 로 저장
+   - index.html 과 같은 폴더에 넣으세요
+
+2) 교회 건물 사진:
+   - 제공해 주신 교회 사진을 "church-building.jpg" 로 저장
+   - index.html 과 같은 폴더에 넣으세요
+
+3) 담임 목사님 사진:
+   - 목사님 사진을 "pastor-photo.jpg" 로 저장 (선택사항)
+
+====================================
+★ YouTube 영상 연결 방법
+====================================
+
+index.html 파일을 텍스트 편집기(메모장, TextEdit)로 열고
+아래 부분을 찾아서 실제 영상 ID로 교체하세요:
+
+const SUNDAY = [
+  { id:'YOUTUBE_VIDEO_ID_1', title:'설교 제목', ... },
+  ...
+
+YouTube 영상 ID 찾는 방법:
+  https://www.youtube.com/watch?v=★여기가 ID★
+  예: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  → ID = dQw4w9WgXcQ
+
+====================================
+★ 교회 내용 수정 방법
+====================================
+
+index.html 파일에서 다음 항목들을 수정하세요:
+
+1) 담임 목사님 이름/인사말 → "담임 목사님 인사말" 섹션 찾기
+2) 교회 주소/연락처 → "교회 안내" 섹션 찾기
+3) 교회 소식 → const NEWS = [...] 부분 수정
+4) Upcoming 일정 → const EVENTS = [...] 부분 수정
+5) 이전 주보 목록 → const PAST_BULS = [...] 부분 수정
+
+====================================
+★ 주보 PDF 연결 방법
+====================================
+
+1) bulletins 폴더 만들기
+2) 주보 PDF를 날짜로 저장 (예: 2026-05-10.pdf)
+3) 이번 주 주보: "bulletin-latest.pdf" 로 저장
+4) index.html 의 PAST_BULS 배열에 파일명 추가
+
+====================================
+★ 방문 신청 이메일 연결 방법
+====================================
+
+무료 서비스 Formspree 사용:
+1) https://formspree.io 에서 무료 가입
+2) 새 폼 만들기 → 이메일 주소 입력
+3) 발급된 폼 ID 복사 (예: xkgbbapz)
+4) index.html 에서 아래 줄 찾기:
+   <form id="visitForm">
+   → 이렇게 변경:
+   <form id="visitForm" action="https://formspree.io/f/★폼ID★" method="POST">
+5) e.preventDefault(); 줄 삭제 또는 주석 처리
+
+====================================
+★ 웹사이트 열기
+====================================
+
+index.html 파일을 더블클릭하면 브라우저에서 바로 열립니다!
+실제 호스팅은 kcwny.org 서버나 GitHub Pages에 올리세요.

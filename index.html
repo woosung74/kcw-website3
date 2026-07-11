@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="웨체스터제일교회 예배, 설교, 찬양, 주보, 교회 소식과 헌금 안내">
+  <title>웨체스터제일교회 | Korean Church of Westchester</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@600;700&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d8dee8;
+      --paper: #fbfcf9;
+      --white: #fff;
+      --blue: #1f5d8f;
+      --blue-dark: #153b5e;
+      --green: #3f7a55;
+      --gold: #b98224;
+      --rose: #a94b5d;
+      --violet: #6655a4;
+      --soft-blue: #e9f3fb;
+      --soft-green: #edf7ef;
+      --soft-gold: #fff5df;
+      --soft-rose: #fff0f2;
+      --shadow: 0 14px 34px rgba(23, 32, 51, .09);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", Inter, system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .nav {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      min-width: 0;
+    }
+    .brand img { width: 42px; height: 42px; object-fit: contain; }
+    .brand strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .brand span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 11px;
+      border-radius: 7px;
+      color: #344054;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .nav-links a:hover { background: var(--soft-blue); color: var(--blue-dark); }
+    .nav-links .give-link { background: var(--blue-dark); color: #fff; }
+    .menu-btn {
+      display: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 7px;
+      width: 42px;
+      height: 42px;
+      color: var(--ink);
+      font-size: 18px;
+    }
+
+    .hero {
+      background:
+        linear-gradient(90deg, rgba(21, 59, 94, .96), rgba(31, 93, 143, .86)),
+        repeating-linear-gradient(135deg, rgba(255,255,255,.08) 0 1px, transparent 1px 18px);
+      color: #fff;
+    }
+    .hero-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 74px 20px 28px;
+      min-height: calc(100svh - 63px);
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .eyebrow {
+      color: #d9e9f7;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+    }
+    h1 {
+      font-family: "Noto Serif KR", serif;
+      font-size: clamp(38px, 7vw, 70px);
+      line-height: 1.08;
+      margin: 0 0 18px;
+      letter-spacing: 0;
+    }
+    .hero-copy {
+      max-width: 650px;
+      color: rgba(255,255,255,.88);
+      font-size: 18px;
+      margin: 0 0 24px;
+    }
+    .hero-actions, .section-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 7px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn.primary { background: #fff; color: var(--blue-dark); }
+    .btn.dark { background: var(--blue-dark); color: #fff; }
+    .btn.gold { background: var(--gold); color: #fff; }
+    .btn.ghost { border-color: rgba(255,255,255,.48); color: #fff; }
+    .btn.line { border-color: var(--line); color: var(--blue-dark); background: #fff; }
+
+    .quick-panel {
+      background: rgba(255,255,255,.97);
+      color: var(--ink);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .quick-head {
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .quick-head img { width: 54px; height: 54px; object-fit: contain; }
+    .quick-head strong { display: block; font-size: 18px; }
+    .quick-head span { color: var(--muted); font-size: 13px; }
+    .quick-list { padding: 8px 18px 18px; }
+    .quick-row {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid #edf0f4;
+    }
+    .quick-row:last-child { border-bottom: 0; }
+    .quick-row i { color: var(--blue); margin-top: 4px; }
+    .quick-row b { display: block; font-size: 15px; }
+    .quick-row span { display: block; color: var(--muted); font-size: 13px; }
+
+    section { padding: 64px 0; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+    .label {
+      display: inline-flex;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+    h2 {
+      font-family: "Noto Serif KR", serif;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.2;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    .lead { color: var(--muted); max-width: 680px; margin: 9px 0 0; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 8px 22px rgba(23, 32, 51, .05);
+    }
+    .card h3 { margin: 0 0 8px; font-size: 19px; line-height: 1.35; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; }
+    .icon {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 7px;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+    .icon.blue { background: var(--blue); }
+    .icon.green { background: var(--green); }
+    .icon.gold { background: var(--gold); }
+    .icon.rose { background: var(--rose); }
+    .icon.violet { background: var(--violet); }
+
+    .schedule-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .time-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .time-card small { color: var(--muted); font-weight: 800; text-transform: uppercase; }
+    .time-card strong { display: block; font-size: 24px; line-height: 1.2; margin: 4px 0; color: var(--blue-dark); }
+    .time-card span { display: block; color: var(--muted); font-size: 13px; }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .pastor-note {
+      background: var(--soft-blue);
+      border: 1px solid #cfe3f4;
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .pastor-note blockquote {
+      font-family: "Noto Serif KR", serif;
+      font-size: 22px;
+      line-height: 1.55;
+      margin: 0 0 16px;
+    }
+    .pastor-note p { margin: 0 0 12px; color: #344054; }
+    .pastor-note cite { font-style: normal; font-weight: 900; color: var(--blue-dark); }
+
+    .media-group {
+      margin-top: 26px;
+    }
+    .media-group:first-of-type {
+      margin-top: 0;
+    }
+    .media-group-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .media-group-head h3 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.3;
+    }
+    .media-group-head p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .media-group-head i {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 7px;
+      background: var(--soft-blue);
+      color: var(--blue-dark);
+      flex: 0 0 auto;
+    }
+    .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .video-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      box-shadow: 0 8px 22px rgba(23, 32, 51, .05);
+    }
+    .thumb {
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #203247, #2c6f91);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 30px;
+      position: relative;
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .badge {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      background: rgba(21, 59, 94, .92);
+      color: #fff;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .video-card .body { padding: 16px; }
+    .video-card h3 { margin: 0 0 7px; font-size: 17px; line-height: 1.4; }
+    .video-card p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .news-list { display: grid; gap: 10px; }
+    .news-item {
+      display: grid;
+      grid-template-columns: 104px 1fr;
+      gap: 14px;
+      align-items: start;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .tag {
+      display: inline-flex;
+      justify-content: center;
+      padding: 6px 8px;
+      border-radius: 6px;
+      font-weight: 900;
+      font-size: 13px;
+      color: var(--blue-dark);
+      background: var(--soft-blue);
+    }
+    .tag.green { color: var(--green); background: var(--soft-green); }
+    .tag.gold { color: #855b11; background: var(--soft-gold); }
+    .tag.rose { color: var(--rose); background: var(--soft-rose); }
+    .news-item h3 { margin: 0 0 5px; font-size: 18px; }
+    .news-item p { margin: 0; color: var(--muted); }
+
+    .event-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .event {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 14px;
+    }
+    .date {
+      border-radius: 7px;
+      background: var(--blue-dark);
+      color: #fff;
+      text-align: center;
+      padding: 8px 4px;
+      height: 62px;
+    }
+    .date b { display: block; font-size: 22px; line-height: 1; }
+    .date span { font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    .event h3 { margin: 0 0 5px; font-size: 17px; }
+    .event p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .bulletin-box {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-top: 14px;
+    }
+    .bulletin-viewer {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 8px 22px rgba(23, 32, 51, .05);
+    }
+    .bulletin-viewer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft-blue);
+    }
+    .bulletin-viewer-head strong { display: block; }
+    .bulletin-viewer-head span { color: var(--muted); font-size: 13px; }
+    .bulletin-frame {
+      width: 100%;
+      height: min(76vh, 760px);
+      min-height: 520px;
+      border: 0;
+      display: block;
+      background: #eef2f6;
+    }
+    .bulletin-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid #edf0f4;
+      padding: 12px 0;
+    }
+    .bulletin-row:first-of-type { border-top: 0; }
+    .bulletin-row strong { display: block; }
+    .bulletin-row span { color: var(--muted); font-size: 13px; }
+
+    .donate {
+      background: #fff;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .donate .card:nth-child(1) { background: var(--soft-blue); }
+    .donate .card:nth-child(2) { background: var(--soft-gold); }
+    .mono {
+      font-family: Inter, ui-monospace, SFMono-Regular, Menlo, monospace;
+      overflow-wrap: anywhere;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .visit-grid { display: grid; grid-template-columns: 1fr .95fr; gap: 16px; }
+    .visit-intro {
+      background: linear-gradient(135deg, var(--soft-blue), #fff);
+      border: 1px solid #cfe3f4;
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+    .visit-intro .lead {
+      margin-bottom: 0;
+    }
+    .visit-form {
+      margin-top: 18px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .visit-form h3 {
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+    .visit-form p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+    .field.full {
+      grid-column: 1 / -1;
+    }
+    .field label {
+      color: #344054;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 11px 12px;
+      color: var(--ink);
+      font: inherit;
+      background: #fff;
+    }
+    .field textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+    .field input:focus,
+    .field textarea:focus {
+      outline: 2px solid rgba(31, 93, 143, .18);
+      border-color: var(--blue);
+    }
+    .form-note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .contact-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      align-self: start;
+    }
+    .contact-card h3 {
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+    .contact-card p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .visit-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 10px 12px;
+      border-radius: 7px;
+      background: var(--soft-gold);
+      color: #6f4c0f;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .contact-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .contact-list a {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 10px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      text-decoration: none;
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+    .contact-list a:hover {
+      transform: translateY(-2px);
+      border-color: #bdd6e9;
+      background: #f8fbfd;
+    }
+    .contact-list i { color: var(--blue); text-align: center; }
+
+    footer {
+      background: #152033;
+      color: rgba(255,255,255,.74);
+      padding: 26px 20px;
+    }
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0;
+    }
+    footer strong { color: #fff; }
+    footer a { color: #fff; text-decoration: none; font-weight: 800; }
+
+    @media (max-width: 920px) {
+      .menu-btn { display: inline-flex; align-items: center; justify-content: center; }
+      .nav-links {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        top: 62px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        padding: 8px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { justify-content: flex-start; }
+      .hero-inner, .split, .visit-grid { grid-template-columns: 1fr; }
+      .hero-inner { padding-top: 52px; min-height: auto; }
+      .cards, .video-grid, .event-grid { grid-template-columns: repeat(2, 1fr); }
+      .schedule-grid { grid-template-columns: repeat(2, 1fr); }
+      .section-head { display: block; }
+      .section-actions { margin-top: 14px; }
+    }
+
+    @media (max-width: 620px) {
+      .nav { padding: 9px 14px; }
+      .brand strong { font-size: 14px; }
+      .brand span { display: none; }
+      .hero-inner { padding: 38px 16px 22px; }
+      .hero-copy { font-size: 16px; }
+      .hero-actions .btn, .section-actions .btn { width: 100%; }
+      section { padding: 46px 0; }
+      .container { padding: 0 16px; }
+      .cards, .video-grid, .event-grid, .schedule-grid { grid-template-columns: 1fr; }
+      .news-item { grid-template-columns: 1fr; gap: 8px; }
+      .event { grid-template-columns: 54px 1fr; }
+      .bulletin-row { align-items: start; flex-direction: column; }
+      .bulletin-viewer-head { align-items: start; flex-direction: column; }
+      .bulletin-frame { height: 68vh; min-height: 440px; }
+      .form-grid { grid-template-columns: 1fr; }
+      footer .container { display: block; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="주 메뉴">
+      <a class="brand" href="#home">
+        <img src="church-logo.png" alt="웨체스터제일교회 로고">
+        <span>
+          <strong>웨체스터제일교회</strong>
+          <span>Korean Church of Westchester</span>
+        </span>
+      </a>
+      <button class="menu-btn" type="button" aria-label="메뉴 열기" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#worship">예배</a></li>
+        <li><a href="#message">말씀</a></li>
+        <li><a href="#praise">찬양</a></li>
+        <li><a href="#news">소식</a></li>
+        <li><a href="#bulletin">최신주보</a></li>
+        <li><a href="#visit">연락처</a></li>
+        <li><a class="give-link" href="#give">헌금하기</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">Life Giving Church 2026</p>
+          <h1>웨체스터제일교회</h1>
+          <p class="hero-copy">하나님을 예배하기 위해 오신 당신을 축복하며 환영합니다. 말씀, 기도, 소그룹, 이웃 섬김으로 복음을 나누는 공동체입니다.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#worship"><i class="fa-solid fa-calendar-check"></i> 예배 시간 보기</a>
+            <a class="btn ghost" href="https://www.youtube.com/@kcwny" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> 유튜브 채널</a>
+            <a class="btn gold" href="#give"><i class="fa-solid fa-heart"></i> 헌금 안내</a>
+          </div>
+        </div>
+
+        <aside class="quick-panel" aria-label="이번 주 안내">
+          <div class="quick-head">
+            <img src="church-logo.png" alt="">
+            <div>
+              <strong>이번 주 예배</strong>
+              <span>48권 25호 · 2026년 6월 21일</span>
+            </div>
+          </div>
+          <div class="quick-list">
+            <div class="quick-row">
+              <i class="fa-solid fa-book-bible"></i>
+              <div><b>주일 말씀: 하나님은 나의 아버지</b><span>갈라디아서 4:6-7 · 안병국 담임목사</span></div>
+            </div>
+            <div class="quick-row">
+              <i class="fa-solid fa-music"></i>
+              <div><b>봉헌 찬양: 주 은혜가 나에게 족하네</b><span>KCW 중창단</span></div>
+            </div>
+            <div class="quick-row">
+              <i class="fa-solid fa-location-dot"></i>
+              <div><b>242 N Broadway, Sleepy Hollow, NY</b><span>주차: Sleepy Hollow High School</span></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="worship">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="label">Worship Schedule</span>
+            <h2>예배와 모임 시간</h2>
+            <p class="lead">성인 예배, Sunday School, Youth Group이 주일 오전 11시에 함께 시작합니다.</p>
+          </div>
+          <div class="section-actions">
+            <a class="btn line" href="https://maps.google.com/?q=242+N+Broadway+Sleepy+Hollow+NY+10591" target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot"></i> 길찾기</a>
+          </div>
+        </div>
+        <div class="schedule-grid">
+          <div class="time-card"><small>Adult</small><strong>11:00 AM</strong><span>주일 · 본당</span></div>
+          <div class="time-card"><small>Kids</small><strong>11:00 AM</strong><span>주일 · 2층</span></div>
+          <div class="time-card"><small>Youth</small><strong>11:00 AM</strong><span>주일 · 3층 Harvest</span></div>
+          <div class="time-card"><small>목장 & 성경공부</small><strong>1:10 PM</strong><span>주일 · 친교실/1층</span></div>
+          <div class="time-card"><small>금요 성령 기도회</small><strong>7:30 PM</strong><span>금요일 · 3층</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container split">
+        <article class="pastor-note">
+          <span class="label">Pastor's Greeting</span>
+          <h2>담임목사 인사말</h2>
+          <blockquote>“사랑하는 성도님들과 방문자 여러분을 주님의 이름으로 환영합니다.”</blockquote>
+          <p>웨체스터제일교회는 하나님의 말씀과 성령의 인도하심 아래, 예수 그리스도를 증거하며 서로를 섬기는 공동체입니다.</p>
+          <p>처음 교회를 찾으시는 분들, 믿음의 가정을 세워가시는 분들 모두를 따뜻하게 환영합니다. 함께 예배하며 하나님의 풍성한 은혜를 누리시기를 바랍니다.</p>
+          <cite>안병국 담임목사</cite>
+        </article>
+        <div class="cards" style="grid-template-columns:1fr;">
+          <article class="card">
+            <span class="icon blue"><i class="fa-solid fa-globe"></i></span>
+            <h3>WORLD 비전</h3>
+            <p>Worshiping, Oikos, Reaching Out, Life Giving, Discipling. 예배, 소그룹, 이웃 섬김, 복음 전함, 예수의 제자로 나아갑니다.</p>
+          </article>
+          <article class="card">
+            <span class="icon green"><i class="fa-solid fa-seedling"></i></span>
+            <h3>2026 비전: 복음을 나누는 교회</h3>
+            <p>NY, CT, NJ의 영혼을 구원하고 땅끝 해외 선교로 향하는 선교적 교회, 선교적 삶을 세워갑니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="message">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="label">Sermons</span>
+            <h2>말씀</h2>
+            <p class="lead">주일설교 말씀과 금요성령기도회 말씀을 구분해서 볼 수 있습니다.</p>
+          </div>
+          <div class="section-actions">
+            <a class="btn dark" href="https://www.youtube.com/@kcwny" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> 채널 바로가기</a>
+          </div>
+        </div>
+        <div class="media-group">
+          <div class="media-group-head">
+            <div>
+              <h3>주일설교 말씀</h3>
+              <p>주일 오전 11시 예배 말씀</p>
+            </div>
+            <i class="fa-solid fa-church"></i>
+          </div>
+          <div class="video-grid" id="sundayGrid"></div>
+        </div>
+        <div class="media-group">
+          <div class="media-group-head">
+            <div>
+              <h3>금요성령기도회</h3>
+              <p>매주 금요일 저녁 7시 30분 말씀과 기도</p>
+            </div>
+            <i class="fa-solid fa-hands-praying"></i>
+          </div>
+          <div class="video-grid" id="fridayGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="praise">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="label">Praise</span>
+            <h2>찬양</h2>
+            <p class="lead">KCW 중창단과 특별 순서 영상을 따로 모았습니다.</p>
+          </div>
+          <div class="section-actions">
+            <a class="btn line" href="https://www.youtube.com/@kcwny" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> 더 보기</a>
+          </div>
+        </div>
+        <div class="media-group">
+          <div class="media-group-head">
+            <div>
+              <h3>KCW 중창단</h3>
+              <p>예배 가운데 드린 중창단 찬양</p>
+            </div>
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="video-grid" id="choirGrid"></div>
+        </div>
+        <div class="media-group">
+          <div class="media-group-head">
+            <div>
+              <h3>특별 순서</h3>
+              <p>특별 찬양과 연주 영상</p>
+            </div>
+            <i class="fa-solid fa-music"></i>
+          </div>
+          <div class="video-grid" id="specialGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="news">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="label">Announcement</span>
+            <h2>교회 소식</h2>
+            <p class="lead">최근 주보 기준으로 꼭 알아야 할 소식을 모았습니다.</p>
+          </div>
+        </div>
+        <div class="news-list">
+          <article class="news-item">
+            <span class="tag gold">졸업</span>
+            <div><h3>졸업 및 승급을 축하합니다</h3><p>승급예배: 6월 21일 주일. 졸업 및 승급자: 오하준, Kelly ChaCha, 이재요.</p></div>
+          </article>
+          <article class="news-item">
+            <span class="tag green">프로젝트</span>
+            <div><h3>Re-Color: 은혜를 입히다</h3><p>친교실로 들어오는 길의 담벼락을 아름답게 칠하는 프로젝트입니다. 모두가 기쁘게 걸어 들어올 “은혜의 길”을 준비합니다.</p></div>
+          </article>
+          <article class="news-item">
+            <span class="tag rose">교육</span>
+            <div><h3>Youth Group & Sunday School 예배</h3><p>주일 오전 11시, 3층 Harvest. 문의: 서혜정 집사. Youth 목장은 매월 1-3주 주일 오후 1-2시, 3층 클래스룸에서 모입니다.</p></div>
+          </article>
+          <article class="news-item">
+            <span class="tag">기도회</span>
+            <div><h3>금요 성령 기도회</h3><p>매주 금요일 저녁 7시 30분, 3층. 시편 강해 중입니다.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="upcoming">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="label">Upcoming</span>
+            <h2>다가오는 일정</h2>
+          </div>
+        </div>
+        <div class="event-grid">
+          <article class="event">
+            <div class="date"><b>21</b><span>Jun</span></div>
+            <div><h3>졸업예배</h3><p>주일 오전 11시 · 졸업 및 승급자 축하</p></div>
+          </article>
+          <article class="event">
+            <div class="date"><b>29</b><span>Aug</span></div>
+            <div><h3>세례식</h3><p>세례/침례식 예정</p></div>
+          </article>
+          <article class="event">
+            <div class="date"><b>27</b><span>Sep</span></div>
+            <div><h3>전교인 Picnic</h3><p>일정 변경: 9월 27일 주일</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="bulletin">
+      <div class="container">
+        <div class="section-head">
+          <div>
+          <span class="label">Bulletin</span>
+          <h2>교회 주보</h2>
+          <p class="lead">최신 주보를 홈페이지 안에서 바로 볼 수 있습니다.</p>
+          </div>
+          <div class="section-actions">
+            <a class="btn dark" href="bulletin-latest.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-up-right-from-square"></i> 크게 보기</a>
+            <a class="btn line" href="bulletin-latest.pdf" download><i class="fa-solid fa-download"></i> 다운로드</a>
+          </div>
+        </div>
+        <div class="bulletin-viewer" aria-label="최신 주보 미리보기">
+          <div class="bulletin-viewer-head">
+            <div>
+              <strong>2026년 6월 21일 주보</strong>
+              <span>48권 25호 · 최신 주보 바로보기</span>
+            </div>
+            <a class="btn line" href="bulletin-latest.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-maximize"></i> 새 창으로 보기</a>
+          </div>
+          <iframe class="bulletin-frame" src="bulletin-latest.pdf#view=FitH&toolbar=1&navpanes=0" title="2026년 6월 21일 최신 주보"></iframe>
+        </div>
+        <div class="bulletin-box">
+          <div class="bulletin-row">
+            <div><strong>2026년 6월 21일 주보</strong><span>48권 25호 · 최신 주보</span></div>
+            <a class="btn dark" href="bulletin-latest.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> 바로 보기</a>
+          </div>
+          <div class="bulletin-row">
+            <div><strong>2026년 6월 14일 주보</strong><span>48권 24호</span></div>
+            <a class="btn line" href="bulletins/2026-06-14.pdf" download><i class="fa-solid fa-file-pdf"></i> PDF</a>
+          </div>
+          <div class="bulletin-row">
+            <div><strong>2026년 5월 31일 주보</strong><span>이전 주보</span></div>
+            <a class="btn line" href="bulletins/2026-05-31.pdf" download><i class="fa-solid fa-file-pdf"></i> PDF</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="give" class="donate">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="label">Giving</span>
+            <h2>헌금 안내</h2>
+            <p class="lead">주보에 안내된 헌금 정보를 한곳에 모았습니다.</p>
+          </div>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <span class="icon blue"><i class="fa-solid fa-building-columns"></i></span>
+            <h3>헌금 · 십일조</h3>
+            <p>Chase Bank Zelle</p>
+            <p class="mono">kcwfinance2@hotmail.com</p>
+          </article>
+          <article class="card">
+            <span class="icon gold"><i class="fa-solid fa-hand-holding-heart"></i></span>
+            <h3>선교 헌금</h3>
+            <p>Missions Account · Citizens Bank</p>
+            <p><a class="mono" href="https://givebutter.com/kcwnymission" target="_blank" rel="noopener">givebutter.com/kcwnymission</a></p>
+          </article>
+          <article class="card">
+            <span class="icon green"><i class="fa-solid fa-circle-info"></i></span>
+            <h3>안내</h3>
+            <p>헌금 관련 문의는 교회 이메일 또는 전화로 연락해 주세요.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="visit">
+      <div class="container visit-grid">
+        <div>
+          <div class="visit-intro">
+            <span class="label">Contact</span>
+            <h2>방문과 연락처</h2>
+            <p class="lead">예배 후에는 잘 준비된 친교와 만남이 있습니다. 처음 오시는 분도 편하게 방문해 주세요.</p>
+            <div class="visit-chip"><i class="fa-solid fa-mug-hot"></i> 주일예배 후 친교와 안내가 준비되어 있습니다</div>
+          </div>
+          <form class="visit-form" id="visitScheduleForm">
+            <h3>방문 일정 보내기</h3>
+            <p>방문하실 날짜와 시간을 적어 보내주시면 교회에서 확인할 수 있습니다.</p>
+            <div class="form-grid">
+              <div class="field">
+                <label for="visitorName">이름</label>
+                <input id="visitorName" name="visitorName" type="text" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="visitorContact">연락처</label>
+                <input id="visitorContact" name="visitorContact" type="text" autocomplete="tel" placeholder="전화 또는 이메일">
+              </div>
+              <div class="field">
+                <label for="visitDate">방문 날짜</label>
+                <input id="visitDate" name="visitDate" type="date" required>
+              </div>
+              <div class="field">
+                <label for="visitTime">방문 시간</label>
+                <input id="visitTime" name="visitTime" type="time" required>
+              </div>
+              <div class="field full">
+                <label for="visitorCount">방문 인원</label>
+                <input id="visitorCount" name="visitorCount" type="text" placeholder="예: 성인 2명, 자녀 1명">
+              </div>
+              <div class="field full">
+                <label for="visitMessage">메모</label>
+                <textarea id="visitMessage" name="visitMessage" placeholder="처음 방문, 주일예배 참석, 자녀부 문의 등"></textarea>
+              </div>
+            </div>
+            <button class="btn dark" type="submit" style="margin-top:14px;"><i class="fa-solid fa-paper-plane"></i> 이메일로 방문 일정 보내기</button>
+            <div class="form-note">버튼을 누르면 이메일 앱이 열리고, 받는 사람은 Welcome@kcwny.org로 자동 입력됩니다.</div>
+          </form>
+        </div>
+        <aside class="contact-card">
+          <h3>교회 안내</h3>
+          <p>주소, 전화, 이메일, 유튜브 채널을 바로 열 수 있습니다.</p>
+          <ul class="contact-list">
+            <li><a href="https://maps.google.com/?q=242+N+Broadway+Sleepy+Hollow+NY+10591" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i><span>242 N Broadway, Sleepy Hollow, NY 10591</span></a></li>
+            <li><a href="tel:19143320447"><i class="fa-solid fa-phone"></i><span>914-332-0447</span></a></li>
+            <li><a href="mailto:Welcome@kcwny.org"><i class="fa-solid fa-envelope"></i><span>Welcome@kcwny.org</span></a></li>
+            <li><a href="http://www.kcwny.org/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i><span>www.kcwny.org</span></a></li>
+            <li><a href="https://www.youtube.com/@kcwny" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i><span>YouTube @kcwny</span></a></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div><strong>웨체스터제일교회</strong><br>Korean Church of Westchester</div>
+      <div><a href="#home">맨 위로</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const YOUTUBE_CHANNEL_ID = "UCWFItfKDJ5oyYG60ooYCmLw";
+    const fallbackVideos = [
+      { category: "sunday", id: "", title: "하나님은 나의 아버지", meta: "2026-06-21 · 갈라디아서 4:6-7 · 안병국 담임목사" },
+      { category: "sunday", id: "", title: "양자됨의 진리", meta: "2026-06-14 · 로마서 8:14-18 · 피영민 총장" },
+      { category: "sunday", id: "FVRr97dPC-g", title: "진정으로 준비된 사람", meta: "2026-05-24 · 마태복음 25:1-12 · 김민호 선교사" },
+      { category: "sunday", id: "9vAGilYdpeQ", title: "나는 왜 결혼했을까", meta: "2026-05-17 · 에베소서 5:22-27 · 안병국 담임목사" },
+      { category: "sunday", id: "_euKMIRuWCE", title: "아픔의 대물림 끊어내기", meta: "2026-05-10 · 에베소서 6:1-3 · 안병국 담임목사" },
+      { category: "sunday", id: "x3tazGuRHCc", title: "가정을 세우는 5단계 리모델링", meta: "2026-05-03 · 가정의달 특별설교 · 안병국 담임목사" },
+      { category: "friday", id: "L3shTTsRFZE", title: "그리스도의 완전한 승리", meta: "금요 성령 기도회 · 시편 110:1-7" },
+      { category: "friday", id: "bSUG79zWj2Y", title: "나는 기도의 사람입니다", meta: "금요 성령 기도회 · 시편 109:1-31" },
+      { category: "friday", id: "9BcuwtFDq8A", title: "하나님이 높이시는 때가 온다", meta: "금요 성령 기도회 · 시편 108:1-13" },
+      { category: "friday", id: "6axJq9H-6KA", title: "기도로 하나님의 마음을 바꾼다", meta: "금요 성령 기도회 · 시편 106:23, 출애굽기 32:11-14" },
+      { category: "friday", id: "qk9MsK7w8yw", title: "위기를 넘어선 교회", meta: "금요 성령 기도회 · 사도행전 6:1-7" },
+      { category: "friday", id: "A0Xx3o6fyjg", title: "기도하는 집으로 불리는 교회", meta: "금요 성령 기도회 · 사도행전 4:23-31" },
+      { category: "choir", id: "2U-VHObR5Rs", title: "왕이신 나의 하나님", meta: "KCW 중창단" },
+      { category: "choir", id: "juloy2kukiI", title: "험한 십자가 능력있네", meta: "KCW 중창단" },
+      { category: "choir", id: "S9Duslqa3Xk", title: "나의 등 뒤에서 나를 도우시는 주", meta: "KCW 중창단" },
+      { category: "choir", id: "Nl6M0sHW1Nk", title: "주님 나라 임하시네 & 한 믿음 가지고", meta: "KCW 중창단" },
+      { category: "choir", id: "PJnqCyEskQ8", title: "내 너를 붙들리라", meta: "KCW 중창단" },
+      { category: "choir", id: "S6ku7pmhXXs", title: "내 슬픔 변해", meta: "KCW 중창단" },
+      { category: "special", id: "Psf18BgqHXI", title: "내 영혼이 은총 입어 + 광야를 지나며", meta: "Oboist 임현애 · Pianist 성세리나" },
+      { category: "special", id: "70kGnIm67Zo", title: "Bless This House", meta: "Tenor 김동필 · Piano 김명숙" },
+      { category: "special", id: "-_7ZkiJ3HlI", title: "주의 크신 복 · 은혜 아니면", meta: "2024년 감사절 특별 순서" },
+      { category: "special", id: "FKomgFzrsIo", title: "모든 백성들 기뻐하라", meta: "크리스마스 찬양" },
+      { category: "special", id: "", title: "특별 순서 더 보기", meta: "YouTube 채널에서 더 많은 특별 순서를 볼 수 있습니다" },
+      { category: "special", id: "", title: "찬양 영상 더 보기", meta: "새 영상이 올라오면 이 자리에 자동으로 반영됩니다" }
+    ];
+
+    const labels = {
+      sunday: "주일예배 말씀",
+      friday: "금요성령기도회",
+      choir: "KCW 중창단",
+      special: "특별 순서"
+    };
+
+    function videoUrl(item) {
+      return item.id ? `https://www.youtube.com/watch?v=${item.id}` : "https://www.youtube.com/@kcwny";
+    }
+
+    let videos = [...fallbackVideos];
+
+    function renderCards(targetId, category) {
+      const list = videos.filter(item => item.category === category).slice(0, 6);
+      document.getElementById(targetId).innerHTML = list.map(item => `
+        <a class="video-card" href="${videoUrl(item)}" target="_blank" rel="noopener">
+          <div class="thumb">
+            ${item.id ? `<img src="https://img.youtube.com/vi/${item.id}/hqdefault.jpg" alt="">` : `<i class="fa-brands fa-youtube"></i>`}
+            <span class="badge">${labels[item.category]}</span>
+          </div>
+          <div class="body">
+            <h3>${item.title}</h3>
+            <p>${item.meta}</p>
+          </div>
+        </a>
+      `).join("");
+    }
+
+    function renderAllVideos() {
+      renderCards("sundayGrid", "sunday");
+      renderCards("fridayGrid", "friday");
+      renderCards("choirGrid", "choir");
+      renderCards("specialGrid", "special");
+    }
+
+    function normalizeTitle(title) {
+      return title.replace(/\s+/g, " ").replace(/\s*[|｜-]\s*KCW.*$/i, "").trim();
+    }
+
+    function getTextByLocalName(node, localName) {
+      const found = Array.from(node.getElementsByTagName("*")).find(item => item.localName === localName);
+      return found ? found.textContent.trim() : "";
+    }
+
+    function classifyVideo(title) {
+      const text = title.toLowerCase();
+      if (/금요|성령|기도회|시편/.test(title)) return "friday";
+      if (/중창|kcw\s*중창|choir/.test(text)) return "choir";
+      if (/특별|찬양|특송|연주|oboe|oboist|piano|tenor|bless|christmas|크리스마스/.test(text)) return "special";
+      if (/주일|설교|예배|father/.test(text)) return "sunday";
+      return "";
+    }
+
+    function formatDate(value) {
+      if (!value) return "";
+      return new Intl.DateTimeFormat("ko-KR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).format(new Date(value)).replace(/\. /g, "-").replace(".", "");
+    }
+
+    function mergeVideos(liveVideos) {
+      const seen = new Set();
+      return [...liveVideos, ...fallbackVideos].filter(item => {
+        const key = `${item.category}:${item.id || item.title}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+
+    async function fetchLatestYouTubeVideos() {
+      const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`;
+      const proxyUrls = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(feedUrl)}`,
+        `https://corsproxy.io/?${encodeURIComponent(feedUrl)}`
+      ];
+
+      for (const url of proxyUrls) {
+        try {
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 8000);
+          const response = await fetch(url, { signal: controller.signal });
+          clearTimeout(timer);
+          if (!response.ok) continue;
+
+          const xmlText = await response.text();
+          const xml = new DOMParser().parseFromString(xmlText, "application/xml");
+          const entries = Array.from(xml.getElementsByTagName("entry"));
+          const liveVideos = entries.map(entry => {
+            const id = getTextByLocalName(entry, "videoId");
+            const rawTitle = getTextByLocalName(entry, "title");
+            const published = getTextByLocalName(entry, "published");
+            const category = classifyVideo(rawTitle);
+            return {
+              category,
+              id,
+              title: normalizeTitle(rawTitle),
+              meta: `${formatDate(published)} · ${labels[category]}`
+            };
+          }).filter(item => item.id && item.title && item.category);
+
+          if (liveVideos.length) {
+            videos = mergeVideos(liveVideos);
+            renderAllVideos();
+            return;
+          }
+        } catch (error) {
+          console.info("YouTube feed unavailable, using saved video list.");
+        }
+      }
+    }
+
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("open");
+    }
+
+    function setupVisitScheduleForm() {
+      const form = document.getElementById("visitScheduleForm");
+      if (!form) return;
+
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        const name = document.getElementById("visitorName").value.trim();
+        const contact = document.getElementById("visitorContact").value.trim();
+        const date = document.getElementById("visitDate").value;
+        const time = document.getElementById("visitTime").value;
+        const count = document.getElementById("visitorCount").value.trim();
+        const message = document.getElementById("visitMessage").value.trim();
+
+        const subject = `[방문 일정] ${name || "방문자"} - ${date || "날짜 미정"}`;
+        const body = [
+          "웨체스터제일교회 방문 일정을 보냅니다.",
+          "",
+          `이름: ${name}`,
+          `연락처: ${contact || "미입력"}`,
+          `방문 날짜: ${date}`,
+          `방문 시간: ${time}`,
+          `방문 인원: ${count || "미입력"}`,
+          "",
+          "메모:",
+          message || "미입력"
+        ].join("\n");
+
+        window.location.href = `mailto:Welcome@kcwny.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      });
+    }
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => document.getElementById("navLinks").classList.remove("open"));
+    });
+
+    setupVisitScheduleForm();
+    renderAllVideos();
+    fetchLatestYouTubeVideos();
+  </script>
+</body>
+</html>
