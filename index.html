@@ -467,6 +467,92 @@
     .event p { margin: 0; color: var(--muted); font-size: 14px; }
 
     .gallery-section { background: #f5f8fb; }
+    .gallery-showcase {
+      position: relative;
+      overflow: hidden;
+      height: clamp(350px, 58vw, 650px);
+      margin-bottom: 22px;
+      border-radius: 18px;
+      background: #102b3e;
+      box-shadow: 0 20px 55px rgba(17, 48, 72, .2);
+    }
+    .gallery-feature {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: zoom-in;
+    }
+    .gallery-feature img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: opacity .6s ease, transform 4.5s ease;
+    }
+    .gallery-showcase.changing .gallery-feature img { opacity: .25; }
+    .gallery-showcase:not(.changing) .gallery-feature img { transform: scale(1.025); }
+    .gallery-shade {
+      position: absolute;
+      inset: auto 0 0;
+      height: 42%;
+      pointer-events: none;
+      background: linear-gradient(transparent, rgba(3, 13, 22, .88));
+    }
+    .gallery-feature-info {
+      position: absolute;
+      left: clamp(18px, 4vw, 42px);
+      right: clamp(18px, 4vw, 42px);
+      bottom: 24px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      color: #fff;
+      pointer-events: none;
+    }
+    .gallery-feature-info strong { display: block; font-size: clamp(22px, 3vw, 35px); }
+    .gallery-feature-info span { color: rgba(255,255,255,.78); font-weight: 700; }
+    .gallery-counter { white-space: nowrap; font-size: 14px; letter-spacing: .08em; }
+    .gallery-controls {
+      position: absolute;
+      top: 50%;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .gallery-arrow {
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(10, 34, 51, .72);
+      font-size: 21px;
+      cursor: pointer;
+      pointer-events: auto;
+      backdrop-filter: blur(7px);
+    }
+    .gallery-progress {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 4px;
+      background: rgba(255,255,255,.2);
+    }
+    .gallery-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--gold);
+    }
+    .gallery-progress.running span { animation: galleryTimer 4.5s linear forwards; }
+    @keyframes galleryTimer { to { width: 100%; } }
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -845,6 +931,9 @@
       .bible-frame { height: 68vh; min-height: 440px; }
       .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .gallery-item:nth-child(3n + 1) { grid-column: span 1; }
+      .gallery-showcase { height: 62vh; min-height: 420px; border-radius: 13px; }
+      .gallery-feature-info { bottom: 20px; }
+      .gallery-arrow { width: 44px; height: 44px; }
       .form-grid { grid-template-columns: 1fr; }
       footer .container { display: block; }
     }
@@ -1111,6 +1200,21 @@
             <p class="lead">예배와 교제, 다음 세대와 이웃 섬김의 아름다운 순간들입니다. 사진을 누르면 크게 볼 수 있습니다.</p>
           </div>
         </div>
+        <div class="gallery-showcase" id="galleryShowcase" aria-label="자동 사진 슬라이드">
+          <button class="gallery-feature" id="galleryFeature" type="button" aria-label="현재 사진 크게 보기">
+            <img id="galleryFeatureImage" src="gallery/gallery-01.jpeg" alt="웨체스터제일교회 어르신 공동체">
+          </button>
+          <div class="gallery-shade"></div>
+          <div class="gallery-feature-info">
+            <div><strong id="galleryFeatureTitle">교회 공동체</strong><span>사진을 누르면 크게 볼 수 있습니다</span></div>
+            <div class="gallery-counter" id="galleryCounter">01 / 14</div>
+          </div>
+          <div class="gallery-controls">
+            <button class="gallery-arrow" id="galleryPrev" type="button" aria-label="이전 사진"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="gallery-arrow" id="galleryNext" type="button" aria-label="다음 사진"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+          <div class="gallery-progress running" id="galleryProgress"><span></span></div>
+        </div>
         <!-- 새 사진 추가: gallery 폴더에 사진을 넣고 아래 gallery-item 한 줄을 복사해 파일명만 바꾸세요. -->
         <div class="gallery-grid">
           <a class="gallery-item" href="gallery/gallery-01.jpeg" target="_blank"><img src="gallery/gallery-01.jpeg" alt="웨체스터제일교회 어르신 공동체" loading="lazy"><span>교회 공동체</span></a>
@@ -1308,27 +1412,87 @@
     const galleryLightbox = document.getElementById("galleryLightbox");
     const galleryLargeImage = document.getElementById("galleryLargeImage");
     const galleryClose = document.getElementById("galleryClose");
+    const galleryShowcase = document.getElementById("galleryShowcase");
+    const galleryFeature = document.getElementById("galleryFeature");
+    const galleryFeatureImage = document.getElementById("galleryFeatureImage");
+    const galleryFeatureTitle = document.getElementById("galleryFeatureTitle");
+    const galleryCounter = document.getElementById("galleryCounter");
+    const galleryProgress = document.getElementById("galleryProgress");
+    const galleryItems = Array.from(document.querySelectorAll(".gallery-item"));
+    let galleryIndex = 0;
+    let galleryTimer;
+
+    function openGalleryPhoto(src, alt) {
+      clearInterval(galleryTimer);
+      galleryProgress.classList.remove("running");
+      galleryLargeImage.src = src;
+      galleryLargeImage.alt = alt || "교회 갤러리 사진";
+      galleryLightbox.classList.add("open");
+      galleryLightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("gallery-open");
+      galleryClose.focus();
+    }
+
+    function restartGalleryProgress() {
+      galleryProgress.classList.remove("running");
+      void galleryProgress.offsetWidth;
+      galleryProgress.classList.add("running");
+    }
+
+    function showGallerySlide(index) {
+      galleryIndex = (index + galleryItems.length) % galleryItems.length;
+      const item = galleryItems[galleryIndex];
+      const image = item.querySelector("img");
+      const title = item.querySelector("span");
+      galleryShowcase.classList.add("changing");
+      window.setTimeout(() => {
+        galleryFeatureImage.src = item.href;
+        galleryFeatureImage.alt = image ? image.alt : "교회 갤러리 사진";
+        galleryFeatureTitle.textContent = title ? title.textContent : "우리 교회 이야기";
+        galleryCounter.textContent = `${String(galleryIndex + 1).padStart(2, "0")} / ${String(galleryItems.length).padStart(2, "0")}`;
+        galleryShowcase.classList.remove("changing");
+      }, 260);
+      restartGalleryProgress();
+    }
+
+    function startGalleryAutoplay() {
+      clearInterval(galleryTimer);
+      galleryTimer = window.setInterval(() => showGallerySlide(galleryIndex + 1), 4500);
+      restartGalleryProgress();
+    }
 
     function closeGalleryPhoto() {
       galleryLightbox.classList.remove("open");
       galleryLightbox.setAttribute("aria-hidden", "true");
       galleryLargeImage.src = "";
       document.body.classList.remove("gallery-open");
+      startGalleryAutoplay();
     }
 
-    document.querySelectorAll(".gallery-item").forEach(item => {
+    galleryItems.forEach(item => {
       item.removeAttribute("target");
       item.addEventListener("click", event => {
         event.preventDefault();
         const thumbnail = item.querySelector("img");
-        galleryLargeImage.src = item.href;
-        galleryLargeImage.alt = thumbnail ? thumbnail.alt : "교회 갤러리 사진";
-        galleryLightbox.classList.add("open");
-        galleryLightbox.setAttribute("aria-hidden", "false");
-        document.body.classList.add("gallery-open");
-        galleryClose.focus();
+        galleryIndex = galleryItems.indexOf(item);
+        openGalleryPhoto(item.href, thumbnail ? thumbnail.alt : "교회 갤러리 사진");
       });
     });
+
+    galleryFeature.addEventListener("click", () => openGalleryPhoto(galleryFeatureImage.src, galleryFeatureImage.alt));
+    document.getElementById("galleryPrev").addEventListener("click", () => {
+      showGallerySlide(galleryIndex - 1);
+      startGalleryAutoplay();
+    });
+    document.getElementById("galleryNext").addEventListener("click", () => {
+      showGallerySlide(galleryIndex + 1);
+      startGalleryAutoplay();
+    });
+    galleryShowcase.addEventListener("mouseenter", () => {
+      clearInterval(galleryTimer);
+      galleryProgress.classList.remove("running");
+    });
+    galleryShowcase.addEventListener("mouseleave", startGalleryAutoplay);
 
     galleryClose.addEventListener("click", closeGalleryPhoto);
     galleryLightbox.addEventListener("click", event => {
@@ -1337,6 +1501,11 @@
     document.addEventListener("keydown", event => {
       if (event.key === "Escape" && galleryLightbox.classList.contains("open")) closeGalleryPhoto();
     });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) clearInterval(galleryTimer);
+      else if (!galleryLightbox.classList.contains("open")) startGalleryAutoplay();
+    });
+    startGalleryAutoplay();
 
     const YOUTUBE_CHANNEL_ID = "UCWFItfKDJ5oyYG60ooYCmLw";
     const fallbackVideos = [
