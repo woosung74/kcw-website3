@@ -506,6 +506,49 @@
       transition: .25s ease;
     }
     .gallery-item:hover span { opacity: 1; transform: translateY(0); }
+    .gallery-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: max(70px, calc(env(safe-area-inset-top) + 58px)) 16px max(22px, env(safe-area-inset-bottom));
+      background: rgba(4, 12, 20, .94);
+    }
+    .gallery-lightbox.open { display: flex; }
+    .gallery-lightbox img {
+      display: block;
+      max-width: 100%;
+      max-height: calc(100dvh - 105px);
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 16px 55px rgba(0, 0, 0, .45);
+    }
+    .gallery-close {
+      position: fixed;
+      top: max(12px, env(safe-area-inset-top));
+      right: max(12px, env(safe-area-inset-right));
+      z-index: 10001;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-width: 108px;
+      min-height: 48px;
+      padding: 10px 15px;
+      border: 2px solid rgba(255,255,255,.75);
+      border-radius: 999px;
+      color: #fff;
+      background: #9f2727;
+      font: inherit;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(0,0,0,.35);
+    }
+    .gallery-close b { font-size: 26px; line-height: .7; }
+    body.gallery-open { overflow: hidden; }
 
     .bulletin-box {
       background: #fff;
@@ -1088,6 +1131,11 @@
       </div>
     </section>
 
+    <div class="gallery-lightbox" id="galleryLightbox" role="dialog" aria-modal="true" aria-label="갤러리 사진 크게 보기" aria-hidden="true">
+      <button class="gallery-close" id="galleryClose" type="button" aria-label="사진 닫기"><b aria-hidden="true">×</b> 닫기</button>
+      <img id="galleryLargeImage" src="" alt="">
+    </div>
+
     <section id="upcoming">
       <div class="container">
         <div class="section-head">
@@ -1257,6 +1305,39 @@
   </footer>
 
   <script>
+    const galleryLightbox = document.getElementById("galleryLightbox");
+    const galleryLargeImage = document.getElementById("galleryLargeImage");
+    const galleryClose = document.getElementById("galleryClose");
+
+    function closeGalleryPhoto() {
+      galleryLightbox.classList.remove("open");
+      galleryLightbox.setAttribute("aria-hidden", "true");
+      galleryLargeImage.src = "";
+      document.body.classList.remove("gallery-open");
+    }
+
+    document.querySelectorAll(".gallery-item").forEach(item => {
+      item.removeAttribute("target");
+      item.addEventListener("click", event => {
+        event.preventDefault();
+        const thumbnail = item.querySelector("img");
+        galleryLargeImage.src = item.href;
+        galleryLargeImage.alt = thumbnail ? thumbnail.alt : "교회 갤러리 사진";
+        galleryLightbox.classList.add("open");
+        galleryLightbox.setAttribute("aria-hidden", "false");
+        document.body.classList.add("gallery-open");
+        galleryClose.focus();
+      });
+    });
+
+    galleryClose.addEventListener("click", closeGalleryPhoto);
+    galleryLightbox.addEventListener("click", event => {
+      if (event.target === galleryLightbox) closeGalleryPhoto();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && galleryLightbox.classList.contains("open")) closeGalleryPhoto();
+    });
+
     const YOUTUBE_CHANNEL_ID = "UCWFItfKDJ5oyYG60ooYCmLw";
     const fallbackVideos = [
       { category: "sunday", id: "ypIX2uAgueA", title: "교실 벽에 걸렸던 십계명", meta: "2026-07-05 · 출애굽기 20:1-17 · 안병국 담임목사" },
