@@ -11,6 +11,11 @@
   <meta property="og:description" content="웨체스터제일교회 예배, 설교, 찬양, 최신 주보와 교회 소식을 확인하세요.">
   <meta property="og:url" content="https://www.kcwny.org/">
   <meta property="og:image" content="https://www.kcwny.org/hero-church-sunset.png">
+  <script>
+    if (window.location.hostname === "new.kcwny.org") {
+      window.location.replace(`https://www.kcwny.org${window.location.pathname}${window.location.search}${window.location.hash}`);
+    }
+  </script>
   <title>웨체스터제일교회 | Korean Church of Westchester</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
